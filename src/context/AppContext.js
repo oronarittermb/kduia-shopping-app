@@ -3,8 +3,8 @@ import React, { createContext, useReducer } from 'react';
 // 5. The reducer - this is used to update the state, based on the action
 export const AppReducer = (state, action) => {
     let new_expenses = [];
-    switch (action,.type) {
-        case 'ADD_QUANTITY  ':
+    switch (action.type) {
+        case 'ADD_QUANTITY':
             let updatedqty = false;
             state.expenses.map((expense)=>{
                 if(expense.name === action.payload.name) {
@@ -29,33 +29,33 @@ export const AppReducer = (state, action) => {
                     new_expenses.push(expense);
                     return true;
                 })
-                state.expenses = new.expenses;
-                action.type = "DONE";
-                return {
-                    ...state,
-                };
-            case 'DELETE_ITEM':
-                state.expenses.map((expense)=>{
-                    if(expense.name === action.payload.name) {
-                        expense.quantity = 0;
-                    }
-                    new_expenses.push(expense);
-                    return true;
-                })
                 state.expenses = new_expenses;
                 action.type = "DONE";
                 return {
                     ...state,
                 };
-        case 'CHG_LOCATION':
+        case 'DELETE_ITEM':
+            state.expenses.map((expense)=>{
+                if(expense.name === action.payload.name) {
+                    expense.quantity = 0;
+                }
+                new_expenses.push(expense);
+                return true;
+            })
+            state.expenses = new_expenses;
+            action.type = "DONE";
+            return {
+                ...state,
+            };
+    case 'CHG_LOCATION':
             action.type = "DONE";
             state.Location = action.payload;
             return {
-                ...state,
+                ...state
             }
-            
+
         default:
-            return state;    
+            return state;
     }
 };
 
